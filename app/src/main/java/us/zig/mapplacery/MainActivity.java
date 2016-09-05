@@ -1,19 +1,24 @@
 package us.zig.mapplacery;
 
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,8 +30,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
-    private Marker mCurrLocationMarker
-
+    private Marker mCurrLocationMarker;
+    private GoogleApiClient mGoogleApiClient;
 
 
     private GoogleMap mMap;
@@ -58,10 +63,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
+
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
@@ -79,14 +85,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected synchronized void buildGoogleApiClient(){
-        protected synchronized void buildGoogleApiClient() {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-            mGoogleApiClient.connect();
-        }
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API)
+            .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -96,7 +100,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
@@ -109,30 +113,26 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        @Override
-        public void onLocationChanged(Location location)
-        {
-            mLastLocation = location;
-            if (mCurrLocationMarker != null) {
-                mCurrLocationMarker.remove();
-            }
+        mLastLocation = location;
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
+        }
 
-            //Place current location marker
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            markerOptions.title("Current Position");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-            mCurrLocationMarker = mMap.addMarker(markerOptions);
+        //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-            //move map camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
-            //stop location updates
-            if (mGoogleApiClient != null) {
-                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            }
+        //stop location updates
+        if (mGoogleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
 
