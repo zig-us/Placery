@@ -71,17 +71,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
+                // zoom in so you can easily see what is around you closely
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             }
         }
         else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
+            // zoom in so you can easily see what is around you closely
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            //        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
         }
-
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+ /*       LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
     }
 
     protected synchronized void buildGoogleApiClient(){
@@ -128,7 +132,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
         //stop location updates
         if (mGoogleApiClient != null) {
