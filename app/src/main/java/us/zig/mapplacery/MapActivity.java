@@ -78,25 +78,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap.setMyLocationEnabled(true);
         }
 
-        LatLng Waynep1 = new LatLng(40.04503510786415, -75.3865360468626);
-        mMap.addMarker(new MarkerOptions().position(Waynep1).title("Parking Lot 25¢ per 30 Min 2 Hour Limit "));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Waynep1));
-
-        LatLng WayneStreet1 = new LatLng(40.04480924058251, -75.38784429430962);
-        mMap.addMarker(new MarkerOptions().position(WayneStreet1).title("Street Parking 25¢ per 30 Min 2 Hour Limit"));
-
-        LatLng Waynep2= new LatLng(40.04398379197053, -75.3798459470272);
-        mMap.addMarker(new MarkerOptions().position(Waynep2).title("Parking Lot Free"));
-
-
-        LatLng Waynep3= new LatLng(40.04398379197053, -75.38167789578438);
-        mMap.addMarker(new MarkerOptions().position(Waynep3).title("Parking Lot Free for Rite Aid"));
-
-        LatLng KingOfprussia1= new LatLng(40.0891326423091, -75.39469867944717);
-        mMap.addMarker(new MarkerOptions().position(KingOfprussia1).title("Parking Lot Free"));
-
-        LatLng KingOfprussia2= new LatLng(40.088377499643585, -75.38524121046066);
-        mMap.addMarker(new MarkerOptions().position(KingOfprussia2).title("Parking Lot Free"));
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     protected synchronized void buildGoogleApiClient(){
@@ -134,9 +119,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
 
         //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
