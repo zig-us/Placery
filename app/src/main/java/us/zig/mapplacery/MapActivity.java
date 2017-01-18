@@ -48,7 +48,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -60,8 +59,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
@@ -82,18 +79,44 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // Add a marker in Sydney and move the camera
         LatLng Waynep1 = new LatLng(40.04503510786415, -75.3865360468626);
-        mMap.addMarker(new MarkerOptions().position(Waynep1).title("Parking Lot 25¢ per 30 Min 2 Hour Limit "));
+        mMap.addMarker(new MarkerOptions().position(Waynep1)
+                .title("Parking Lot")
+                .snippet("25¢ per 30 Min 2 Hour Limit"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Waynep1));
 
         LatLng WayneStreet1 = new LatLng(40.04480924058251, -75.38784429430962);
-        mMap.addMarker(new MarkerOptions().position(WayneStreet1).title("Street Parking 25¢ per 30 Min 2 Hour Limit"));
+        mMap.addMarker(new MarkerOptions()
+                .position(WayneStreet1)
+                .title("Street Parking")
+                .snippet("25¢ per 30 Min 2 Hour Limit"));
 
         LatLng Waynep2= new LatLng(40.04398379197053, -75.3798459470272);
-        mMap.addMarker(new MarkerOptions().position(Waynep2).title("Parking Lot Free"));
+        mMap.addMarker(new MarkerOptions()
+                .position(Waynep2)
+                .title("Parking Lot")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .snippet("Free"));
 
 
         LatLng Waynep3= new LatLng(40.04398379197053, -75.38167789578438);
         mMap.addMarker(new MarkerOptions().position(Waynep3).title("Parking Lot Free for Rite Aid"));
+
+
+        LatLng Waynep4= new LatLng(40.0440228,-75.3798366);
+        mMap.addMarker(new MarkerOptions()
+                .position(Waynep4)
+                .title("Parking Lot")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .snippet("Free"));
+
+        LatLng Waynep6= new LatLng(40.0433329,-75.3795415);
+        mMap.addMarker(new MarkerOptions()
+                .position(Waynep6)
+                .title("CVS Parking Lot")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .snippet("Free"));
+
+
 
         LatLng KingOfprussia1= new LatLng(40.0891326423091, -75.39469867944717);
         mMap.addMarker(new MarkerOptions().position(KingOfprussia1).title("Parking Lot Free"));
