@@ -79,7 +79,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // Add a marker in Sydney and move the camera
         LatLng Waynep1 = new LatLng(40.04503510786415, -75.3865360468626);
-        mMap.addMarker(new MarkerOptions().position(Waynep1)
+        mMap.addMarker(new MarkerOptions()
+                .position(Waynep1)
                 .title("Parking Lot")
                 .snippet("25¢ per 30 Min 2 Hour Limit"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Waynep1));
@@ -88,18 +89,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mMap.addMarker(new MarkerOptions()
                 .position(WayneStreet1)
                 .title("Street Parking")
-                .snippet("25¢ per 30 Min 2 Hour Limit"));
+                .snippet("25¢ per 30 Min 2 Hour Limit")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng Waynep2= new LatLng(40.04398379197053, -75.3798459470272);
-        mMap.addMarker(new MarkerOptions()
-                .position(Waynep2)
-                .title("Parking Lot")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                .snippet("Free"));
+
 
 
         LatLng Waynep3= new LatLng(40.04398379197053, -75.38167789578438);
-        mMap.addMarker(new MarkerOptions().position(Waynep3).title("Parking Lot Free for Rite Aid"));
+        mMap.addMarker(new MarkerOptions()
+                .position(Waynep3)
+                .title("Parking Lot for Rite Aid")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                .snippet("Free"));
 
 
         LatLng Waynep4= new LatLng(40.0440228,-75.3798366);
