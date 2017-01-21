@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -56,11 +57,15 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState); //
         setContentView(R.layout.activity_main);
 
-        try {
+        Toolbar myToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolBar);
+
+/*        try {
             getSupportActionBar().setTitle(R.string.app_name);
         } catch (Exception e) {
             // do nothing for now TODO probably should post an error to the user that makes sense
         }
+*/
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
