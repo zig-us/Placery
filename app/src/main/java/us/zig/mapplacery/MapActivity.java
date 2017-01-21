@@ -55,7 +55,7 @@ public class MapActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         try {
-            getSupportActionBar().setTitle("Map Location Activity");
+            getSupportActionBar().setTitle(R.string.app_name);
         } catch (Exception e) {
             // do nothing for now TODO
         }
