@@ -49,6 +49,8 @@ public class MapActivity extends AppCompatActivity
      */
     private GoogleApiClient client;
 
+    // this method is called when the application starts
+    // it provides the
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class MapActivity extends AppCompatActivity
         try {
             getSupportActionBar().setTitle(R.string.app_name);
         } catch (Exception e) {
-            // do nothing for now TODO
+            // do nothing for now TODO probably should post an error to the user that makes sense
         }
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
