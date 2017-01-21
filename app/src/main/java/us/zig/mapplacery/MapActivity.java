@@ -1,8 +1,11 @@
 package us.zig.mapplacery;
 
+import android.*;
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -11,6 +14,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -37,17 +43,28 @@ public class MapActivity extends AppCompatActivity
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle("Map Location Activity");
+        try {
+            getSupportActionBar().setTitle("Map Location Activity");
+        } catch (Exception e) {
+            // do nothing for now TODO
+        }
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -61,15 +78,14 @@ public class MapActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
-        mGoogleMap=googleMap;
+    public void onMapReady(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         //Initialize Google Play Services
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
                 buildGoogleApiClient();
@@ -78,8 +94,7 @@ public class MapActivity extends AppCompatActivity
                 //Request Location Permission
                 checkLocationPermission();
             }
-        }
-        else {
+        } else {
             buildGoogleApiClient();
             mGoogleMap.setMyLocationEnabled(true);
         }
@@ -101,21 +116,22 @@ public class MapActivity extends AppCompatActivity
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {}
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
 
     @Override
-    public void onLocationChanged(Location location)
-    {
+    public void onLocationChanged(Location location) {
         mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
@@ -140,13 +156,14 @@ public class MapActivity extends AppCompatActivity
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -159,8 +176,8 @@ public class MapActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(MapActivity.this,
-                                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
                             }
                         })
                         .create()
@@ -170,8 +187,8 @@ public class MapActivity extends AppCompatActivity
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION );
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
             }
         }
     }
@@ -188,7 +205,7 @@ public class MapActivity extends AppCompatActivity
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
                         if (mGoogleApiClient == null) {
@@ -210,6 +227,41 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Map Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }
 
 
