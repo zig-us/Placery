@@ -53,7 +53,7 @@ public class MapActivity extends AppCompatActivity
     // it provides the
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); //
         setContentView(R.layout.activity_main);
 
         try {
