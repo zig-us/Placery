@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MapPlacery</string>
+    <string name="app_name">Placery</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_menu">Menu</string>
 
