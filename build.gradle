@@ -5,7 +5,6 @@ buildscript {
         jcenter()
     }
     dependencies {
-        compile 'com.google.maps.android:android-maps-utils:0.4+'
 
 
 
