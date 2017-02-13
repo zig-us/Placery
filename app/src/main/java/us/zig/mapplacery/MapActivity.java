@@ -290,8 +290,8 @@ public class MapActivity extends AppCompatActivity
     private void addItems() {
 
         // Set some lat/lng coordinates to start with.
-        double lat = 40.9254;
-        double lng = 74.2765;
+        double lat = 40.0056380;
+        double lng = -75.3824000;
 
         // Add ten cluster items in close proximity, for purposes of this example.
         for (int i = 0; i < 10; i++) {
