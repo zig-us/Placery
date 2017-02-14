@@ -272,7 +272,7 @@ public class MapActivity extends AppCompatActivity
     private void setUpClusterer()
     {
         // Position the map.
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(40.0056380, -75.3824000), 10));
 
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
@@ -293,14 +293,32 @@ public class MapActivity extends AppCompatActivity
         double lat = 40.0056380;
         double lng = -75.3824000;
 
-        // Add ten cluster items in close proximity, for purposes of this example.
-        for (int i = 0; i < 10; i++) {
-            double offset = i / 60d;
-            lat = lat + offset;
-            lng = lng + offset;
-            MapItem offsetItem = new MapItem(lat, lng);
-            mClusterManager.addItem(offsetItem);
-        }
+        // Parking lot Wayne
+        MapItem mapItem = new MapItem( 40.04503510786415, -75.3865360468626, "Parking Lot", "25¢ per 30 Min 2 Hour Limit");
+        mClusterManager.addItem(mapItem);
+
+        mapItem = new MapItem(40.04398379197053, -75.38167789578438, "Parking Lot for Rite Aid", "Free for Rite Aid");
+        mClusterManager.addItem(mapItem);
+
+        mapItem = new MapItem(40.0440228, -75.3798366, "Parking Lot", "Free");
+        mClusterManager.addItem(mapItem);
+
+        mapItem = new MapItem(40.0433329, -75.3795415, "CVS Parking Lot", "Free for CVS");
+        mClusterManager.addItem(mapItem);
+
+        //Street Parking Wayne
+        mapItem = new MapItem( 40.04480924058251, -75.38784429430962, "Street Parking", "25¢ per 30 Min 2 Hour Limit");
+        mClusterManager.addItem(mapItem);
+
+        //King Of Prussia Parking Lot
+        mapItem = new MapItem(40.0891326423091, -75.39469867944717, "Parking Lot", "Free");
+        mClusterManager.addItem(mapItem);
+
+        mapItem = new MapItem(40.088377499643585, -75.38524121046066, "Parking Lot", "Free");
+        mClusterManager.addItem(mapItem);
+
+
+
     }
 
 }
