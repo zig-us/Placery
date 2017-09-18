@@ -316,6 +316,9 @@ public class MapActivity extends AppCompatActivity
 
         mapItem = new MapItem(40.088377499643585, -75.38524121046066, "Parking Lot", "Free");
         mClusterManager.addItem(mapItem);
+        //Shoping Mall
+        mapItem = new MapItem(40.10223549586965, -75.23825883865356, "Parking Lot", "Free");
+        mClusterManager.addItem(mapItem);
 
 
 
