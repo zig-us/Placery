@@ -45,6 +45,7 @@ public class MapActivity extends AppCompatActivity
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    ParkingLocations mParkingLocations = new ParkingLocations();
 
     private ClusterManager<MapItem> mClusterManager;
 
@@ -289,14 +290,15 @@ public class MapActivity extends AppCompatActivity
 
     private void addItems() {
 
-        // Set some lat/lng coordinates to start with.
-        double lat = 40.0056380;
-        double lng = -75.3824000;
+        ParkingLocation lParkingLocation = mParkingLocations.getParkingLocation();
 
         // Parking lot Wayne
-        MapItem mapItem = new MapItem( 40.04503510786415, -75.3865360468626, "Parking Lot", "25¢ per 30 Min 2 Hour Limit");
+        MapItem mapItem = new MapItem( lParkingLocation.getmLatitude(),
+                lParkingLocation.getmLongitude(),
+                lParkingLocation.getmName(),
+                lParkingLocation.getmPrice());
         mClusterManager.addItem(mapItem);
-
+/*
         mapItem = new MapItem(40.04398379197053, -75.38167789578438, "Parking Lot for Rite Aid", "Free for Rite Aid");
         mClusterManager.addItem(mapItem);
 
@@ -319,7 +321,7 @@ public class MapActivity extends AppCompatActivity
         //Shoping Mall
         mapItem = new MapItem(40.10223549586965, -75.23825883865356, "Parking Lot", "Free");
         mClusterManager.addItem(mapItem);
-
+*/
 
 
     }
